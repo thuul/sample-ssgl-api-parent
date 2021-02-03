@@ -1,0 +1,5 @@
+#ignore bakup files
+.project
+.settings
+/**/target
+/**/bin
