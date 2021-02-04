@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import sample.ssgl.api.comp.SampleMutableAutoProp;
 import sample.ssgl.api.crud.dao.AppSettingRepository;
 import sample.ssgl.api.crud.entity.AppSetting;
 
@@ -25,9 +26,6 @@ public class SampleServiceApplication implements ApplicationRunner {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(SampleServiceApplication.class);
 
-    @Autowired
-    private AppSettingRepository repository;
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
         repository.save(new AppSetting("app.name", "SSGL Sample Application", true));
@@ -35,6 +33,16 @@ public class SampleServiceApplication implements ApplicationRunner {
         repository.findAll().iterator().forEachRemaining((e) -> {
             LOGGER.info(e.getSetValue());
         });
+
+        LOGGER.info(String.valueOf(autoProp.isAppRunning()));
+        LOGGER.info(autoProp.getAppName());
+        LOGGER.info(autoProp.getAppDevMode());
     }
+
+    @Autowired
+    private AppSettingRepository repository;
+
+    @Autowired
+    private SampleMutableAutoProp autoProp;
 
 }
