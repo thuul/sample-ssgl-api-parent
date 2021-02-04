@@ -31,6 +31,7 @@ public class SampleServiceApplication implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         repository.save(new AppSetting("app.name", "SSGL Sample Application", true));
+        repository.save(new AppSetting("app.dev.mode", "DEVELOPMENT", false));
         repository.findAll().iterator().forEachRemaining((e) -> {
             LOGGER.info(e.getSetValue());
         });
